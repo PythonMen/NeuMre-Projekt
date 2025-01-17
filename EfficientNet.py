@@ -15,7 +15,6 @@ print("Dataset downloaded to:", dataset_path)
 data_dir = os.path.join(dataset_path, "flower_images")
 
 # Data transformations
-
 print("Transforming dataset")
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
@@ -38,25 +37,28 @@ batch_size = 32
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-# Load EfficientNet model (EfficientNet-B0)
-model = models.efficientnet_b0(pretrained=True)
+# Function to modify and load EfficientNet model
+def get_efficientnet_model(version, num_classes):
+    if version == "b0":
+        model = models.efficientnet_b0(pretrained=True)
+    elif version == "b1":
+        model = models.efficientnet_b1(pretrained=True)
+    elif version == "b2":
+        model = models.efficientnet_b2(pretrained=True)
+    else:
+        raise ValueError("Unsupported EfficientNet version")
 
-# Modify the classifier to match the number of flower classes
-num_classes = len(dataset.classes)
-model.classifier[1] = nn.Linear(model.classifier[1].in_features, num_classes)
-
-# Move model to device
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = model.to(device)
+    model.classifier[1] = nn.Linear(model.classifier[1].in_features, num_classes)
+    return model
 
 # Define loss function and optimizer
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+def get_optimizer(model, lr=0.001):
+    return optim.Adam(model.parameters(), lr=lr)
 
-# Training loop
-def train_model(model, train_loader, criterion, optimizer, device, num_epochs=10):
+# Training loop with incremental learning
+def train_model_incremental(model, train_loader, criterion, optimizer, device, start_epoch, num_epochs):
     model.train()
-    for epoch in range(num_epochs):
+    for epoch in range(start_epoch, start_epoch + num_epochs):
         running_loss = 0.0
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
@@ -74,7 +76,7 @@ def train_model(model, train_loader, criterion, optimizer, device, num_epochs=10
 
             running_loss += loss.item()
 
-        print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {running_loss / len(train_loader):.4f}")
+        print(f"Epoch {epoch + 1}/{start_epoch + num_epochs}, Loss: {running_loss / len(train_loader):.4f}")
 
 # Evaluation function
 def evaluate_model(model, test_loader, device):
@@ -93,10 +95,44 @@ def evaluate_model(model, test_loader, device):
     print(f"Test Accuracy: {accuracy:.2f}%")
     return accuracy
 
-# Train the model
-print("Training the model...")
-train_model(model, train_loader, criterion, optimizer, device, num_epochs=10)
+# Experiment configurations
+iterations = [5, 5, 5]  # Incremental training: 5 + 5 + 5 epochs
+versions = ["b0", "b1", "b2"]  # EfficientNet versions
 
-# Evaluate the model
-print("Model trained, evaluating...")
-evaluate_model(model, test_loader, device)
+# Device setup
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# Run experiments
+results = []
+for num_epochs in iterations:
+    for version in versions:
+        print(f"Training EfficientNet-{version} incrementally for {num_epochs} epochs...")
+
+        # Load model
+        model = get_efficientnet_model(version, num_classes=len(dataset.classes))
+        model = model.to(device)
+
+        # Get optimizer and loss function
+        optimizer = get_optimizer(model, lr=0.001)
+        criterion = nn.CrossEntropyLoss()
+
+        # Train and evaluate incrementally
+        start_epoch = 0
+        for i, epoch_count in enumerate(iterations):
+            print(f"Training for {epoch_count} more epochs (epoch {start_epoch + 1} to {start_epoch + epoch_count})")
+            train_model_incremental(model, train_loader, criterion, optimizer, device, start_epoch, epoch_count)
+
+            # Test model after each stage
+            print(f"Evaluating EfficientNet-{version} after {start_epoch + epoch_count} epochs...")
+            accuracy = evaluate_model(model, test_loader, device)
+
+            # Store results
+            results.append((version, start_epoch + epoch_count, accuracy))
+
+            # Increment the start_epoch for the next phase
+            start_epoch += epoch_count
+
+# Print all results
+print("\nFinal Results:")
+for version, num_epochs, accuracy in results:
+    print(f"EfficientNet-{version}, Epochs: {num_epochs}, Test Accuracy: {accuracy:.2f}%")
