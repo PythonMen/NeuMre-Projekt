@@ -37,80 +37,11 @@ batch_size = 32
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-# Function to modify and load EfficientNet model
-def get_efficientnet_model(version, num_classes):
-    if version == "b0":
-        model = models.efficientnet_b0(pretrained=True)
-    elif version == "b1":
-        model = models.efficientnet_b1(pretrained=True)
-    elif version == "b2":
-        model = models.efficientnet_b2(pretrained=True)
-    else:
-        raise ValueError("Unsupported EfficientNet version")
-
-    model.classifier[1] = nn.Linear(model.classifier[1].in_features, num_classes)
-    return model
-
-
-# Define loss function and optimizer
-def get_optimizer(model, lr=0.001):
-    return optim.Adam(model.parameters(), lr=lr)
-
-# Training loop with incremental learning
-def train_model_incremental(model, train_loader, criterion, optimizer, device, start_epoch, num_epochs):
-    model.train()
-    for epoch in range(start_epoch, start_epoch + num_epochs):
-        running_loss = 0.0
-        for inputs, labels in train_loader:
-            inputs, labels = inputs.to(device), labels.to(device)
-
-            # Zero the parameter gradients
-            optimizer.zero_grad()
-
-            # Forward pass
-            outputs = model(inputs)
-            loss = criterion(outputs, labels)
-
-            # Backward pass and optimize
-            loss.backward()
-            optimizer.step()
-
-            running_loss += loss.item()
-
-        print(f"Epoch {epoch + 1}/{start_epoch + num_epochs}, Loss: {running_loss / len(train_loader):.4f}")
-
-# Evaluation function
-def evaluate_model(model, test_loader, device):
-    model.eval()
-    correct = 0
-    total = 0
-    with torch.no_grad():
-        for inputs, labels in test_loader:
-            inputs, labels = inputs.to(device), labels.to(device)
-            outputs = model(inputs)
-            _, predicted = torch.max(outputs, 1)
-            total += labels.size(0)
-            correct += (predicted == labels).sum().item()
-
-    accuracy = 100 * correct / total
-    print(f"Test Accuracy: {accuracy:.2f}%")
-    return accuracy
-
-# Experiment configurations
-iterations = [5, 5, 5]  # Incremental training: 5 + 5 + 5 epochs
-versions = ["b0", "b1", "b2"]  # EfficientNet versions
-
 # Device setup
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-
-
-
-
-
 # Run experiments
-
 model = models.resnet50(pretrained=True)
 model.fc = nn.Linear(model.fc.in_features, model.fc.out_features)  # Match output to number of classes
 model = model.to(device)
