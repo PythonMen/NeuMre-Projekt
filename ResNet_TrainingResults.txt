@@ -10,6 +10,17 @@ Epoch 8, Loss: 0.0657, Test Accuracy: 94.40%
 Epoch 9, Loss: 0.0964, Test Accuracy: 95.30%
 Epoch 10, Loss: 0.0732, Test Accuracy: 83.10%
 
+Epoch 1, Loss: 0.6579, Test Accuracy: 86.20%
+Epoch 2, Loss: 0.3403, Test Accuracy: 88.30%
+Epoch 3, Loss: 0.2455, Test Accuracy: 84.90%
+Epoch 4, Loss: 0.1775, Test Accuracy: 79.30%
+Epoch 5, Loss: 0.1520, Test Accuracy: 82.30%
+Epoch 6, Loss: 0.1287, Test Accuracy: 89.80%
+Epoch 7, Loss: 0.0796, Test Accuracy: 85.70%
+Epoch 8, Loss: 0.0897, Test Accuracy: 88.10%
+Epoch 9, Loss: 0.0795, Test Accuracy: 87.40%
+Epoch 10, Loss: 0.0746, Test Accuracy: 94.50%
+
 ResNet34 Training
 Epoch 1, Loss: 0.8385, Test Accuracy: 75.20%
 Epoch 2, Loss: 0.4110, Test Accuracy: 83.20%
@@ -21,6 +32,22 @@ Epoch 7, Loss: 0.1455, Test Accuracy: 83.80%
 Epoch 8, Loss: 0.1241, Test Accuracy: 93.40%
 Epoch 9, Loss: 0.0800, Test Accuracy: 86.30%
 Epoch 10, Loss: 0.1106, Test Accuracy: 95.60%
+
+Epoch 1, Loss: 0.7475, Test Accuracy: 70.30%
+Epoch 2, Loss: 0.4226, Test Accuracy: 86.20%
+Epoch 3, Loss: 0.3083, Test Accuracy: 71.20%
+Epoch 4, Loss: 0.2298, Test Accuracy: 85.50%
+Epoch 5, Loss: 0.1720, Test Accuracy: 89.40%
+Epoch 6, Loss: 0.1702, Test Accuracy: 88.70%
+Epoch 7, Loss: 0.1019, Test Accuracy: 87.50%
+Epoch 8, Loss: 0.1565, Test Accuracy: 90.40%
+Epoch 9, Loss: 0.1077, Test Accuracy: 89.90%
+Epoch 10, Loss: 0.0550, Test Accuracy: 94.80%
+Epoch 11, Loss: 0.0548, Test Accuracy: 86.00%
+Epoch 12, Loss: 0.0715, Test Accuracy: 93.40%
+Epoch 13, Loss: 0.0387, Test Accuracy: 86.30%
+Epoch 14, Loss: 0.0787, Test Accuracy: 94.20%
+Epoch 15, Loss: 0.0607, Test Accuracy: 91.10%
 
 ResNet50 Training
 Epoch 1, Loss: 0.8347, Test Accuracy: 70.60%

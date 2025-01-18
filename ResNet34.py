@@ -43,7 +43,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Run experiments
 model = models.resnet34(pretrained=True)
-model.fc = nn.Linear(model.fc.in_features, model.fc.out_features)  # Match output to number of classes
+model.fc = nn.Linear(model.fc.in_features, len(dataset.classes))  # Match output to number of classes
 model = model.to(device)
 
 # Define Loss and Optimizer
@@ -80,7 +80,7 @@ def evaluate(model, loader):
     return 100 * correct / total
 
 # Train and Evaluate
-for epoch in range(10):
+for epoch in range(15):
     train_loss = train(model, train_loader, criterion, optimizer)
     test_accuracy = evaluate(model, test_loader)
     print(f"Epoch {epoch+1}, Loss: {train_loss:.4f}, Test Accuracy: {test_accuracy:.2f}%")

@@ -43,7 +43,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Run experiments
 model = models.resnet50(pretrained=True)
-model.fc = nn.Linear(model.fc.in_features, model.fc.out_features)  # Match output to number of classes
+model.fc = nn.Linear(model.fc.in_features, len(dataset.classes))  # Match output to number of classes
 model = model.to(device)
 
 # Define Loss and Optimizer
