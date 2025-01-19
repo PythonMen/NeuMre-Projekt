@@ -1,0 +1,104 @@
+Training EfficientNet-b0 incrementally for 5 epochs...
+
+Epoch 1/5, Loss: 0.4606
+Epoch 2/5, Loss: 0.2155
+Epoch 3/5, Loss: 0.1400
+Epoch 4/5, Loss: 0.1214
+Epoch 5/5, Loss: 0.1139
+
+Evaluating EfficientNet-b0 after 5 epochs...
+Test Accuracy: 95.80%
+
+Training for 5 more epochs (epoch 6 to 10)
+
+Epoch 6/10, Loss: 0.0816
+Epoch 7/10, Loss: 0.0832
+Epoch 8/10, Loss: 0.0889
+Epoch 9/10, Loss: 0.0590
+Epoch 10/10, Loss: 0.0438
+
+Evaluating EfficientNet-b0 after 10 epochs...
+Test Accuracy: 96.00%
+
+Training for 5 more epochs (epoch 11 to 15)
+
+Epoch 11/15, Loss: 0.0401
+Epoch 12/15, Loss: 0.0559
+Epoch 13/15, Loss: 0.0575
+Epoch 14/15, Loss: 0.0282
+Epoch 15/15, Loss: 0.0196
+
+Evaluating EfficientNet-b0 after 15 epochs...
+Test Accuracy: 97.10%
+
+=======================================================================
+
+Training EfficientNet-b1 incrementally for 5 epochs...
+
+Epoch 1/5, Loss: 0.3951
+Epoch 2/5, Loss: 0.1605
+Epoch 3/5, Loss: 0.1308
+Epoch 4/5, Loss: 0.0966
+Epoch 5/5, Loss: 0.0639
+
+Evaluating EfficientNet-b1 after 5 epochs...
+Test Accuracy: 95.00%
+
+Training for 5 more epochs (epoch 6 to 10)
+
+Epoch 6/10, Loss: 0.0683
+Epoch 7/10, Loss: 0.0897
+Epoch 8/10, Loss: 0.0567
+Epoch 9/10, Loss: 0.0276
+Epoch 10/10, Loss: 0.0227
+
+Evaluating EfficientNet-b1 after 10 epochs...
+Test Accuracy: 94.70%
+
+Training for 5 more epochs (epoch 11 to 15)
+
+Epoch 11/15, Loss: 0.0517
+Epoch 12/15, Loss: 0.0437
+Epoch 13/15, Loss: 0.0601
+Epoch 14/15, Loss: 0.0306
+Epoch 15/15, Loss: 0.0264
+
+Evaluating EfficientNet-b1 after 15 epochs...
+Test Accuracy: 96.10%
+
+B1 gotov sa svih 15
+
+=======================================================================
+
+Training EfficientNet-b2 incrementally for 5 epochs...
+
+Epoch 1/5, Loss: 0.4380
+Epoch 2/5, Loss: 0.2126
+Epoch 3/5, Loss: 0.1684
+Epoch 4/5, Loss: 0.1056
+Epoch 5/5, Loss: 0.1121
+
+Evaluating EfficientNet-b2 after 5 epochs...
+Test Accuracy: 94.70%
+
+Training for 5 more epochs (epoch 6 to 10)
+
+Epoch 6/10, Loss: 0.0773
+Epoch 7/10, Loss: 0.0732
+Epoch 8/10, Loss: 0.0567
+Epoch 9/10, Loss: 0.0682
+Epoch 10/10, Loss: 0.0555
+
+Evaluating EfficientNet-b2 after 10 epochs...
+Test Accuracy: 95.20%
+
+Training for 5 more epochs (epoch 11 to 15)
+
+Epoch 11/15, Loss: 0.0495
+Epoch 12/15, Loss: 0.0450
+Epoch 13/15, Loss: 0.0615
+Epoch 14/15, Loss: 0.0390
+Epoch 15/15, Loss: 0.0361
+
+Evaluating EfficientNet-b2 after 15 epochs...
+Test Accuracy: 94.30%
